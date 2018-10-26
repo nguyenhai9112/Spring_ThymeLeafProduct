@@ -22,6 +22,7 @@ public class CustomerController {
 
     @GetMapping("/customer/create")
     public String create(Model model) {
+        model.addAttribute("customer", new Customer());
         return "create";
     }
 
@@ -51,5 +52,11 @@ public class CustomerController {
         redirect.addFlashAttribute("success", "Delete customer successfully");
         customerService.remove(id);
         return "redirect:/";
+    }
+
+    @GetMapping("/customer/{id}/view")
+    public String view(@PathVariable int id, Model model) {
+        model.addAttribute("customer", customerService.findById(id));
+        return "view";
     }
 }
